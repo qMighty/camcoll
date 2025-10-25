@@ -8,14 +8,18 @@ if STARTUP_DELAY > 0 then
     end
 end
 
+
+local Players = game:GetService('Players')
+local RunService = game:GetService('RunService')
+local LocalPlayer = Players.LocalPlayer
+
 local UserInputService = game:GetService('UserInputService')
-local player = LocalPlayer
 
 local screenGui = Instance.new('ScreenGui')
 screenGui.Name = 'CameraToggleGui'
 screenGui.ResetOnSpawn = false
 screenGui.IgnoreGuiInset = true
-screenGui.Parent = player:WaitForChild('PlayerGui')
+screenGui.Parent = LocalPlayer:WaitForChild('PlayerGui')
 
 local mainFrame = Instance.new('Frame')
 mainFrame.Size = UDim2.new(0, 120, 0, 35)
@@ -210,10 +214,10 @@ local cameraCollisionDisabled = true
 
 local function updateCameraMode()
     if cameraCollisionDisabled then
-        player.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Zoom
+        LocalPlayer.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Zoom
         button.Text = 'Cam: Off'
     else
-        player.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
+        LocalPlayer.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
         button.Text = 'Cam: On'
     end
 end
@@ -224,7 +228,7 @@ button.MouseButton1Click:Connect(function()
 end)
 
 -- Initial camera setup
-player.CameraMode = Enum.CameraMode.Classic
-player.DevComputerCameraMode = Enum.DevComputerCameraMovement.UserChoice
-player.DevTouchCameraMode = Enum.DevTouchCameraMovement.UserChoice
+LocalPlayer.CameraMode = Enum.CameraMode.Classic
+LocalPlayer.DevComputerCameraMode = Enum.DevComputerCameraMovement.UserChoice
+LocalPlayer.DevTouchCameraMode = Enum.DevTouchCameraMovement.UserChoice
 updateCameraMode()
